@@ -64,7 +64,7 @@ public class Library {
         this.personList = personList;
     }
 
-    public void addPerson(Person person) {
+    public void addPersonToLibrary(Person person) {
         personList.add(person);
     }
 
