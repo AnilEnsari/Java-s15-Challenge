@@ -111,6 +111,7 @@ public class Main {
                 System.out.println("3-List Books by Author");
                 System.out.println("4-Borrow Book");
                 System.out.println("5-Give Book Back");
+                System.out.println("9-Log Out");
 
 
 
@@ -176,18 +177,64 @@ break;
                selectedBook= workintech.searchBookByName(bookName);
                if( selectedBook!=null) {
                    workintech.bookBorrowed(loggedinPerson,selectedBook);
-                 ;
-
-               }break ;
 
 
+               } break;
+           case "3":
+               String authorName2 = scanner4.next();
+
+               System.out.println("Please enter the author of the book");
+               if(workintech.listAllByAuthors(authorName2).isEmpty()){
+                   System.out.println("Sorry we don't have any books authored by "+authorName2);
+               } else {
+                   System.out.println(workintech.listAllByAuthors(authorName2));
+                   if(workintech.listAllByAuthors(authorName2).size()==1){
+                       selectedBook = workintech.searchBookByAuthor(authorName2);
+                   }
+                   else {
+
+                       System.out.println("The author has more than books you could have seent the ID and the name of the books" +
+                               "Please use name or Id to select the book.");
+
+                   }
+                   break;
+               };
+               break;
 
 
 
 
 
-       }
 
+
+       } break ;
+    case "5":
+        if(loggedinPerson.getBorrowedBooks().isEmpty()){
+            System.out.println("You already don't have any book. So you cant give any book back.");
+            break;
+        }
+        else {
+            System.out.println("Please select the book you want to give Back");
+            Book bookToGiveBack =  null;
+            for(int i = 0; i<loggedinPerson.getBorrowedBooks().size(); i++){
+                System.out.println((i+1)+"- "+loggedinPerson.getBorrowedBooks().get(i));
+            }
+           int bookIndex =  (Integer.parseInt(scanner4.next()))-1;
+            if(bookIndex>=0 && bookIndex<loggedinPerson.getBorrowedBooks().size()){
+                workintech.giveBackBook(loggedinPerson,loggedinPerson.getBorrowedBooks().get(bookIndex));
+                break;
+            }
+            else {
+                System.out.println("Please enter a valid integer to give the book back");
+            }
+
+        }
+        break;
+
+
+    case "9":
+
+        loggedinPerson= null;
 
 
 

@@ -10,6 +10,8 @@ public class Library {
     private List<Book> bookList = new LinkedList<>();
     private Set<Book> bookSet = new HashSet<>();
     private Set<Book> categorizedBookSet = new LinkedHashSet<>();
+
+
     private List<Person> personList = new LinkedList<>();
 
 
@@ -133,7 +135,7 @@ public class Library {
     public Book searchBookByAuthor(String author) {
         for (Book book : bookSet) {
 
-            if (book.getAuthor().equals(author)) {
+            if (book.getAuthor().contains(author)) {
                 return book;
 
             }
@@ -225,14 +227,14 @@ public class Library {
                     person1.borrowBill(book);
 
                 } else {
-                    String owner = "";
+                    List <Person> ownerList = new LinkedList<>();
                     for (Person person : personList) {
                         if (!person.getBorrowedBooks().isEmpty() && person.getBorrowedBooks().contains(book)) {
-                            owner = person.getName() + " " + person.getLastname();
+                            ownerList.add(person);
                         }
                     }
 
-                    System.out.println("This book is out of library. It is borrowed by: " + owner);
+                    System.out.println("This book is out of library. It is borrowed by: " + ownerList);
                 }
 
             } else {
