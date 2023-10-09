@@ -1,4 +1,5 @@
 
+import Enums.Categories;
 import Person.Student;
 import Person.Person;
 
@@ -28,7 +29,7 @@ public class Main {
                 System.out.println("3- admin");
 
                 System.out.println("0- Exit");
-                String loginPerson = scanner.nextLine();
+                String loginPerson = scanner.next();
                 switch (loginPerson) {
                     case "0":
                         System.out.println("Hope to see you again!");
@@ -38,7 +39,7 @@ public class Main {
                     case "1":
                         Scanner scanner2 = new Scanner(System.in);
                         System.out.println("Please enter your id");
-                        String id1 = scanner2.nextLine();
+                        String id1 = scanner2.next();
                         for (Person persons : workintech.getPersonList()) {
 
                             if (persons.getId() == Integer.parseInt(id1)) {
@@ -62,7 +63,7 @@ public class Main {
                         Scanner scanner3 = new Scanner(System.in);
                         System.out.println("Please enter an integer id you want to have! ");
 
-                        String id2 = scanner3.nextLine();
+                        String id2 = scanner3.next();
                         int validatedId = 0;
                         for (Person persons : workintech.getPersonList()) {
                             if (persons.getId() == Integer.parseInt(id2)) {
@@ -76,13 +77,13 @@ public class Main {
                         }
                         if (validatedId == Integer.parseInt(id2)) {
                             System.out.println("Please enter your Name");
-                            String firstName2 = scanner.nextLine();
+                            String firstName2 = scanner.next();
                             System.out.println("Please enter your Lastname");
-                            String lastName2 = scanner.nextLine();
+                            String lastName2 = scanner.next();
                             System.out.println("Are you a student ?");
                             System.out.println("1- Yes ");
                             System.out.println("2- No");
-                            String isStudent = scanner.nextLine();
+                            String isStudent = scanner.next();
                             if (isStudent.equals("1")){
                                 loggedinPerson= new Student(validatedId,firstName2,lastName2);
                             }
@@ -91,6 +92,7 @@ public class Main {
                             }
                             workintech.addPersonToLibrary(loggedinPerson);
                             System.out.println("Congrulations you have been registered!");
+                            break ;
 
 
 
@@ -98,6 +100,56 @@ public class Main {
 
 
                 }
+            } else {
+                System.out.println("Login has been successful lets start to operations.");
+                Scanner scanner4 = new Scanner(System.in);
+                System.out.println("Please select the operation you want to do");
+                System.out.println("0-Exit");
+                System.out.println("1-List All Book by Current Stock");
+                System.out.println("2-List Books by Categories");
+                System.out.println("3-List Books by Author");
+                System.out.println("4-Borrow Book");
+                System.out.println("5-Give Book Back");
+
+
+
+                String operations = scanner4.next();
+switch (operations){
+    case "0" :
+        System.out.println("Thanks for visiting us "+loggedinPerson.getName()+" "+loggedinPerson.getLastname());
+        isOpen=false ;
+        break;
+
+    case "1":
+        System.out.println(workintech.getBookMap());
+        break;
+
+    case "2":
+        System.out.println("Lütfen aramak istediğiniz kategoriyi seçin");
+        System.out.println("1- Sports");
+        System.out.println("2- Classics");
+        System.out.println("3- History");
+        System.out.println("4- Technology");
+       String categoryResult = scanner4.next();
+        switch (categoryResult) {
+            case "1" -> System.out.println(workintech.listAllByCategories(Categories.SPORT));
+            case "2" -> System.out.println(workintech.listAllByCategories(Categories.CLASSICS));
+            case "3" -> System.out.println(workintech.listAllByCategories(Categories.HISTORY));
+            case "4" -> System.out.println(workintech.listAllByCategories(Categories.TECHNOLOGY));
+            default -> System.out.println("You entered an invalid id");
+        }
+
+
+
+
+
+}
+
+
+
+
+
+
             }
 
 

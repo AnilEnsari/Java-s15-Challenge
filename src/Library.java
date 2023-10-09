@@ -9,7 +9,7 @@ public class Library {
     public Map<String, Integer> bookMap = new TreeMap<>();
     private List<Book> bookList = new LinkedList<>();
     private Set<Book> bookSet = new HashSet<>();
-    private Set<Book> categorizedBookSet = new HashSet<>();
+    private Set<Book> categorizedBookSet = new LinkedHashSet<>();
     private Set<Book> listedBookSet = new HashSet<>();
     private List<Person> personList = new LinkedList<>();
 
@@ -186,7 +186,7 @@ public class Library {
 
     }
 
-    public Set<Book> ListAllByCategories(Categories categories) {
+    public Set<Book> listAllByCategories(Categories categories) {
         for (Book book : bookSet) {
             if (book.getCategories().equals(categories.getName())) {
 
@@ -220,6 +220,7 @@ public class Library {
                 if (bookMap.get(book.getName()) > 0) {
                     bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
                     person1.borrowBook(book);
+                    person1.borrowBill(book);
 
                 } else {
                     String owner = "";
@@ -243,6 +244,7 @@ public class Library {
 
                     bookMap.put(book.getName(), bookMap.get(book.getName()) + 1);
                     person1.giveBack(book);
+                    person1.giveBackBill(book);
 
 
 
