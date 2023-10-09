@@ -2,6 +2,7 @@ package Person;
 
 import Books.Book;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ public class Person implements Billable {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
+        this.borrowedBooks = new ArrayList<>();
     }
 
     public String getName() {

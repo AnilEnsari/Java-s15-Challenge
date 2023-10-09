@@ -1,4 +1,5 @@
 
+import Books.Book;
 import Enums.Categories;
 import Person.Student;
 import Person.Person;
@@ -138,7 +139,54 @@ switch (operations){
             case "4" -> System.out.println(workintech.listAllByCategories(Categories.TECHNOLOGY));
             default -> System.out.println("You entered an invalid id");
         }
+        break;
+    case "3":
+        System.out.println("Please enter the author whose books you want to list ");
+        String authorName = scanner4.next();
+        if(workintech.listAllByAuthors(authorName).isEmpty()){
+            System.out.println("Sorry we dont have any books authored by "+authorName);
+        } else {
+            System.out.println(workintech.listAllByAuthors(authorName));
+        };
+break;
 
+    case "4" :
+
+        System.out.println("Please select the book you want to borrow");
+        System.out.println("How do you want to select the book ?");
+        System.out.println("1- With Id");
+        System.out.println("2- With Name");
+        System.out.println("3- With Author");
+        Book selectedBook ;
+       String searchBookKey = scanner4.next();
+
+       switch (searchBookKey){
+           case "1":
+               System.out.println("Please enter the id of the book");
+
+               String bookId = scanner4.next();
+               selectedBook= workintech.searchBookById(Integer.parseInt(bookId));
+               if( selectedBook!=null){
+                   workintech.bookBorrowed(loggedinPerson,selectedBook);
+
+               } break;
+           case "2":
+               System.out.println("Please enter the name of the book");
+               String bookName = scanner4.next();
+               selectedBook= workintech.searchBookByName(bookName);
+               if( selectedBook!=null) {
+                   workintech.bookBorrowed(loggedinPerson,selectedBook);
+                 ;
+
+               }break ;
+
+
+
+
+
+
+
+       }
 
 
 

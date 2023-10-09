@@ -10,7 +10,6 @@ public class Library {
     private List<Book> bookList = new LinkedList<>();
     private Set<Book> bookSet = new HashSet<>();
     private Set<Book> categorizedBookSet = new LinkedHashSet<>();
-    private Set<Book> listedBookSet = new HashSet<>();
     private List<Person> personList = new LinkedList<>();
 
 
@@ -92,13 +91,6 @@ public class Library {
         this.categorizedBookSet = categorizedBookSet;
     }
 
-    public Set<Book> getListedBookSet() {
-        return listedBookSet;
-    }
-
-    public void setListedBookSet(Set<Book> listedBookSet) {
-        this.listedBookSet = listedBookSet;
-    }
 
     public Map<String, Integer> getBookMap() {
         return bookMap;
@@ -126,7 +118,7 @@ public class Library {
     public Book searchBookByName(String name) {
         for (Book book : bookSet) {
 
-            if (book.getName().equals(name)) {
+            if (book.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT))) {
                 return book;
 
             }
@@ -187,6 +179,9 @@ public class Library {
     }
 
     public Set<Book> listAllByCategories(Categories categories) {
+        if (!categorizedBookSet.isEmpty()) {
+            categorizedBookSet.clear();
+        }
         for (Book book : bookSet) {
             if (book.getCategories().equals(categories.getName())) {
 
@@ -200,10 +195,14 @@ public class Library {
     }
 
     public Set<Book> listAllByAuthors(String name) {
-        for (Book book : bookSet) {
-            if (book.getAuthor().equals(name)) {
+        if (!categorizedBookSet.isEmpty()) {
+            categorizedBookSet.clear();
+        }
 
-                listedBookSet.add(book);
+        for (Book book : bookSet) {
+            if (book.getAuthor().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
+
+                categorizedBookSet.add(book);
             }
 
 
@@ -213,20 +212,23 @@ public class Library {
     }
 
     public void bookBorrowed(Person person1, Book book) {
+
         if (person1.getBorrowedBooks().size() >= 5) {
-            System.out.println("You already have 5 books");
+            System.out.println("Sorry you cant borrow any more books.You already have 5 books");
+            System.out.println("Your books are: "+person1.getBorrowedBooks());
         } else {
             if (bookMap.containsKey(book.getName())) {
                 if (bookMap.get(book.getName()) > 0) {
                     bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
                     person1.borrowBook(book);
+                    System.out.println("Congratulations you have successfully borrowed the book successfully" + book);
                     person1.borrowBill(book);
 
                 } else {
                     String owner = "";
                     for (Person person : personList) {
                         if (!person.getBorrowedBooks().isEmpty() && person.getBorrowedBooks().contains(book)) {
-                            owner = person.getName() + person.getLastname();
+                            owner = person.getName() + " " + person.getLastname();
                         }
                     }
 
@@ -239,18 +241,18 @@ public class Library {
         }
 
     }
+
     public void giveBackBook(Person person1, Book book) {
-            if (bookMap.containsKey(book.getName())) {
+        if (bookMap.containsKey(book.getName())) {
 
-                    bookMap.put(book.getName(), bookMap.get(book.getName()) + 1);
-                    person1.giveBack(book);
-                    person1.giveBackBill(book);
+            bookMap.put(book.getName(), bookMap.get(book.getName()) + 1);
+            person1.giveBack(book);
+            person1.giveBackBill(book);
 
 
-
-            } else {
-                System.out.println("This book has never been in the library");
-            }
+        } else {
+            System.out.println("This book has never been in the library");
+        }
 
 
     }
