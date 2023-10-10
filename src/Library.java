@@ -42,11 +42,12 @@ public class Library {
         bookList.add(book2);
 
 
-stockCheck();
+        stockCheck();
 
 
     }
-    public Map<String,Integer> stockCheck () {
+
+    public Map<String, Integer> stockCheck() {
         for (Book book : bookList) {
             bookMap.put(book.getName(), 0);
         }
@@ -107,7 +108,7 @@ stockCheck();
     public Book searchBookByName(String name) {
         for (Book book : bookList) {
 
-            if (book.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT))) {
+            if (book.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
                 return book;
 
             }
@@ -138,10 +139,9 @@ stockCheck();
         bookList.add(book);
 
 
-
     }
 
-    public Book editBook(Book oldBook, Book newBook) {
+    public void editBook(Book oldBook, Book newBook) {
 
         for (Book book : bookList) {
 
@@ -150,16 +150,21 @@ stockCheck();
                 book.setId(newBook.getId());
                 book.setName(newBook.getName());
                 book.setAuthor(newBook.getAuthor());
-                return book;
+                book.setCategories(newBook.getCategories());
+                book.setRentPrice(newBook.getRentPrice());
+
             }
         }
         System.out.println("Please enter a valid book");
-        return null;
+
     }
 
     public void removeBook(Book book) {
         if (bookList.contains(book)) {
             bookList.remove(book);
+            if (bookMap.get(book.getName()) > 0) {
+                bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
+            }
         } else {
 
             System.out.println("The Library already doesn't have the book. Please select a valid book");

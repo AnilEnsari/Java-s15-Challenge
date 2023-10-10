@@ -196,6 +196,7 @@ public class Main {
                                     workintech.removeBook(selectedBook);
                                     System.out.println("The book has been removed successfully");
 
+
                                 }
 
 
@@ -277,7 +278,14 @@ public class Main {
                                 default -> System.out.println("You entered an invalid category");
                             }
                             if (updatedBook != null) {
-                                selectedBook2.setBook(updatedBook);
+
+                                if (workintech.bookMap.containsKey(selectedBook2.getName())) {
+                                    workintech.bookMap.put(updatedBook.getName(), workintech.bookMap.get(selectedBook2.getName()));
+                                }
+                                workintech.bookMap.remove(selectedBook2.getName());
+                                workintech.editBook(selectedBook2,updatedBook);
+
+
                                 System.out.println("Congratulations you have successfully set " + updatedBook);
 
                             }
