@@ -111,6 +111,8 @@ public class Main {
                 System.out.println("2- Remove book from the library");
                 System.out.println("3- Set a book");
                 System.out.println("4- Check stock");
+                System.out.println("5- List books by Categories");
+                System.out.println("6- List books by Authors");
                 System.out.println("9- Logout");
 
 
@@ -132,6 +134,7 @@ public class Main {
                                 if (addedBook != null) {
                                     workintech.addBook(addedBook);
                                     System.out.println("Congratulations you have successfully added " + addedBook);
+                                    workintech.bookMap.put(addedBook.getName(), workintech.bookMap.get(addedBook.getName()) + 1);
 
                                 }
 
@@ -145,7 +148,7 @@ public class Main {
                                     String addName2 = scanner5.nextLine();
                                     System.out.println("Please enter the author's full name of the book");
                                     String author2 = scanner5.nextLine();
-                                    System.out.println("Please choose the category you want to search");
+                                    System.out.println("Please choose the category you want to add");
                                     System.out.println("1- Sports");
                                     System.out.println("2- Classics");
                                     System.out.println("3- History");
@@ -162,8 +165,11 @@ public class Main {
                                                 addedBook = new Book(Integer.parseInt(addedId2), addName2, author2, Categories.TECHNOLOGY);
                                         default -> System.out.println("You entered an invalid category");
                                     }
-                                    workintech.addBook(addedBook);
-                                    System.out.println("Congratulations you have successfully added " + addedBook);
+                                    if (addedBook != null) {
+                                        workintech.addBook(addedBook);
+                                        workintech.bookMap.put(addedBook.getName(), 1);
+                                        System.out.println("Congratulations you have successfully added " + addedBook);
+                                    } ;
                                     break;
                                 } else {
                                     System.out.println("The id is already used by another book");
@@ -191,7 +197,6 @@ public class Main {
                                     System.out.println("The book has been removed successfully");
 
                                 }
-
 
 
                                 break;
@@ -249,7 +254,7 @@ public class Main {
                         Book updatedBook;
                         String addedId2 = scanner5.nextLine();
                         updatedBook = workintech.searchBookById(Integer.parseInt(addedId2));
-                        if (selectedBook2 != null&&(updatedBook == null||updatedBook.getId()==selectedBook2.getId())) {
+                        if (selectedBook2 != null && (updatedBook == null || updatedBook.getId() == selectedBook2.getId())) {
                             System.out.println("You entered a valid id please enter the name of the book");
                             String addName2 = scanner5.nextLine();
                             System.out.println("Please enter the author's full name of the book");
@@ -270,7 +275,8 @@ public class Main {
                                 case "4" ->
                                         updatedBook = new Book(Integer.parseInt(addedId2), addName2, author2, Categories.TECHNOLOGY);
                                 default -> System.out.println("You entered an invalid category");
-                            }if (updatedBook!=null){
+                            }
+                            if (updatedBook != null) {
                                 selectedBook2.setBook(updatedBook);
                                 System.out.println("Congratulations you have successfully set " + updatedBook);
 
@@ -282,12 +288,39 @@ public class Main {
 
                         }
                         break;
+                    case "4":
+                        System.out.println(workintech.getBookMap());
+                        break;
+                    case "5":
+                        System.out.println("Please choose the category of the book");
+                        System.out.println("1- Sports");
+                        System.out.println("2- Classics");
+                        System.out.println("3- History");
+                        System.out.println("4- Technology");
+                        String categoryResult = scanner5.nextLine();
+                        switch (categoryResult) {
+                            case "1" -> System.out.println(workintech.listAllByCategories(Categories.SPORT));
+                            case "2" -> System.out.println(workintech.listAllByCategories(Categories.CLASSICS));
+                            case "3" -> System.out.println(workintech.listAllByCategories(Categories.HISTORY));
+                            case "4" -> System.out.println(workintech.listAllByCategories(Categories.TECHNOLOGY));
+                            default -> System.out.println("You entered an invalid category");
+                        }
+                        break;
+                    case "6":
+                        System.out.println("Please enter the author whose books you want to list ");
+                        String authorName = scanner5.nextLine();
+                        if (workintech.listAllByAuthors(authorName).isEmpty()) {
+                            System.out.println("Sorry we don't have any books authored by " + authorName);
+                        } else {
+                            System.out.println(workintech.listAllByAuthors(authorName));
+                        }
+
+                        break;
+
                     case "9":
 
                         loggedinPerson = null;
                         break;
-
-
 
 
                 }
@@ -296,12 +329,12 @@ public class Main {
                 Scanner scanner4 = new Scanner(System.in);
                 System.out.println("Please select the operation you want to do");
                 System.out.println("0-Exit");
-                System.out.println("1-List All Book by Current Stock");
-                System.out.println("2-List Books by Categories");
-                System.out.println("3-List Books by Author");
-                System.out.println("4-Borrow Book");
-                System.out.println("5-Give Book Back");
-                System.out.println("9-Log Out");
+                System.out.println("1-List all book by current stock");
+                System.out.println("2-List books by Categories");
+                System.out.println("3-List books by Author");
+                System.out.println("4-Borrow book");
+                System.out.println("5-Give book back");
+                System.out.println("9-Log out");
 
 
                 String operations = scanner4.nextLine();
@@ -312,7 +345,7 @@ public class Main {
                         break;
 
                     case "1":
-                        System.out.println(workintech.stockCheck());
+                        System.out.println(workintech.getBookMap());
                         break;
 
                     case "2":

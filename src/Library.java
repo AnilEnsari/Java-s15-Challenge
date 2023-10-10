@@ -42,7 +42,7 @@ public class Library {
         bookList.add(book2);
 
 
-
+stockCheck();
 
 
     }
@@ -138,6 +138,7 @@ public class Library {
         bookList.add(book);
 
 
+
     }
 
     public Book editBook(Book oldBook, Book newBook) {
@@ -152,7 +153,7 @@ public class Library {
                 return book;
             }
         }
-        System.out.println("Please enter an valid book");
+        System.out.println("Please enter a valid book");
         return null;
     }
 
