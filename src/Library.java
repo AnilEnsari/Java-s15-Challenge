@@ -7,8 +7,7 @@ import java.util.*;
 
 public class Library {
     public Map<String, Integer> bookMap = new TreeMap<>();
-    private List<Book> bookList = new LinkedList<>();
-    private Set<Book> bookSet = new HashSet<>();
+    private List<Book> bookList = new ArrayList<>();
     private Set<Book> categorizedBookSet = new LinkedHashSet<>();
 
 
@@ -42,9 +41,14 @@ public class Library {
         bookList.add(book3);
         bookList.add(book2);
 
+
+
+
+
+    }
+    public Map<String,Integer> stockCheck () {
         for (Book book : bookList) {
             bookMap.put(book.getName(), 0);
-            bookSet.add(book);
         }
         for (Book book : bookList) {
             if (bookMap.containsKey(book.getName())) {
@@ -53,8 +57,7 @@ public class Library {
 
             }
         }
-
-
+        return bookMap;
     }
 
     public List<Person> getPersonList() {
@@ -77,22 +80,6 @@ public class Library {
         this.bookList = bookList;
     }
 
-    public Set<Book> getBookSet() {
-        return bookSet;
-    }
-
-    public void setBookSet(Set<Book> bookSet) {
-        this.bookSet = bookSet;
-    }
-
-    public Set<Book> getCategorizedBookSet() {
-        return categorizedBookSet;
-    }
-
-    public void setCategorizedBookSet(Set<Book> categorizedBookSet) {
-        this.categorizedBookSet = categorizedBookSet;
-    }
-
 
     public Map<String, Integer> getBookMap() {
         return bookMap;
@@ -103,7 +90,7 @@ public class Library {
     }
 
     public Book searchBookById(int id) {
-        for (Book book : bookSet) {
+        for (Book book : bookList) {
 
             if (book.getId() == id) {
                 return book;
@@ -112,13 +99,13 @@ public class Library {
 
 
         }
-        System.out.println("Please enter a valid Id");
+        System.out.println("The id is not used by library");
         return null;
 
     }
 
     public Book searchBookByName(String name) {
-        for (Book book : bookSet) {
+        for (Book book : bookList) {
 
             if (book.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT))) {
                 return book;
@@ -133,7 +120,7 @@ public class Library {
     }
 
     public Book searchBookByAuthor(String author) {
-        for (Book book : bookSet) {
+        for (Book book : bookList) {
 
             if (book.getAuthor().contains(author)) {
                 return book;
@@ -174,7 +161,7 @@ public class Library {
             bookList.remove(book);
         } else {
 
-            System.out.println("The Library already doesnt have the book. Please enter a valid book");
+            System.out.println("The Library already doesn't have the book. Please select a valid book");
         }
 
 
@@ -184,7 +171,7 @@ public class Library {
         if (!categorizedBookSet.isEmpty()) {
             categorizedBookSet.clear();
         }
-        for (Book book : bookSet) {
+        for (Book book : bookList) {
             if (book.getCategories().equals(categories.getName())) {
 
                 categorizedBookSet.add(book);
@@ -201,7 +188,7 @@ public class Library {
             categorizedBookSet.clear();
         }
 
-        for (Book book : bookSet) {
+        for (Book book : bookList) {
             if (book.getAuthor().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
 
                 categorizedBookSet.add(book);
@@ -217,7 +204,7 @@ public class Library {
 
         if (person1.getBorrowedBooks().size() >= 5) {
             System.out.println("Sorry you cant borrow any more books.You already have 5 books");
-            System.out.println("Your books are: "+person1.getBorrowedBooks());
+            System.out.println("Your books are: " + person1.getBorrowedBooks());
         } else {
             if (bookMap.containsKey(book.getName())) {
                 if (bookMap.get(book.getName()) > 0) {
@@ -227,7 +214,7 @@ public class Library {
                     person1.borrowBill(book);
 
                 } else {
-                    List <Person> ownerList = new LinkedList<>();
+                    List<Person> ownerList = new LinkedList<>();
                     for (Person person : personList) {
                         if (!person.getBorrowedBooks().isEmpty() && person.getBorrowedBooks().contains(book)) {
                             ownerList.add(person);

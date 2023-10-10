@@ -20,12 +20,12 @@ public class Book {
 
     }
 
-    public Book(int id, String name, String author, double rentPrice, String categories) {
+    public Book(int id, String name, String author, Categories categories) {
         this.id = id;
         this.name = name;
         this.author = author;
-        this.rentPrice = rentPrice;
-        this.categories = categories;
+        this.rentPrice = categories.getPrice();
+        this.categories = categories.getName();
     }
 
     public int getId() {
@@ -66,6 +66,14 @@ public class Book {
 
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+    public void setBook(Book book){
+        this.setId(book.getId());
+        this.setName(book.getName());
+        this.setAuthor(book.getAuthor());
+        this.setCategories(book.getCategories());
+        this.setRentPrice(book.getRentPrice());
+
     }
 
     @Override
