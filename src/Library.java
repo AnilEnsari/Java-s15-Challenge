@@ -6,6 +6,7 @@ import java.util.*;
 
 
 public class Library {
+
     public Map<String, Integer> bookMap = new TreeMap<>();
     private List<Book> bookList = new ArrayList<>();
     private Set<Book> categorizedBookSet = new LinkedHashSet<>();
@@ -123,8 +124,9 @@ public class Library {
     public Book searchBookByAuthor(String author) {
         for (Book book : bookList) {
 
-            if (book.getAuthor().contains(author)) {
+            if (book.getAuthor().toLowerCase(Locale.ROOT).contains(author.toLowerCase(Locale.ROOT))) {
                 return book;
+
 
             }
 
@@ -242,18 +244,21 @@ public class Library {
 
 
                 } else {
-                    List<Person> ownerList = new LinkedList<>();
+                    List<Person> ownerList = new ArrayList<>();
                     for (Person person : personList) {
                         if (!person.getBorrowedBooks().isEmpty() && person.getBorrowedBooks().contains(book)) {
                             ownerList.add(person);
                         }
                     }
 
-                    System.out.println("This book is out of library. It is borrowed by: "
-                            + ownerList
+                    System.out.println("This book is out of library. It is borrowed by: ");
+                             for(Person owner : ownerList){
+
+                                 System.out.println(owner.getName()+" "+owner.getLastname()+", ");
+                    }
 
 
-                    );
+
                 }
 
             } else {
