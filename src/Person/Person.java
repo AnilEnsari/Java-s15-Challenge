@@ -11,13 +11,23 @@ public class Person implements Billable {
     private String name;
     private String lastname;
     private List<Book> borrowedBooks;
+    private FinancialCheck financialCheck;
 
 
-    public Person(int id, String name, String lastname) {
+
+    public Person(int id, String name, String lastname,Double firstPayment) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.borrowedBooks = new ArrayList<>();
+        this.financialCheck = new FinancialCheck();
+        if(firstPayment>= 500){
+            this.financialCheck.pay(firstPayment);
+        }else {
+            System.out.println("First payment must be 500 or more");
+        }
+
+
     }
 
     public String getName() {
@@ -68,23 +78,33 @@ public class Person implements Billable {
 
     @Override
     public void borrowBill(Book book) {
-        System.out.println("Your payment is : " + book.getRentPrice());
+        System.out.println("Your payment is : "+book.getRentPrice());
+        financialCheck.borrowMoney(book.getRentPrice());
+        financialCheck.addTakenBook(book);
+        System.out.println("Your current balance is "+ financialCheck.getCurrentBalance());
     }
 
     @Override
     public void giveBackBill(Book book) {
-        System.out.println("Thanks for your %10 donation to our library. After the donation, you will be paid: " + (book.getRentPrice() * 0.9));
+        System.out.println("We take %20 of the book price for use and %80 will be paid back. Your refund is: " + (book.getRentPrice() * 0.8));
+        financialCheck.pay(book.getRentPrice()*0.8);
+        financialCheck.addGivenBook(book);
+        System.out.println("This amount has been added to your current balance "+(book.getRentPrice()*0.8));
+        System.out.println("Your current balance is "+ financialCheck.getCurrentBalance());
+    }
 
+    public FinancialCheck getFinancialCheck() {
+        return financialCheck;
     }
 
     @Override
     public String toString() {
-        return "Person{" +
+        return
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", borrowedBooks=" + borrowedBooks +
-                '}';
+                ", lastname='" + lastname + "\n"+
+                ", borrowedBooks=" + borrowedBooks +"\n"+
+        "current Balance: " + financialCheck.getCurrentBalance() +" TL";
     }
 
     @Override

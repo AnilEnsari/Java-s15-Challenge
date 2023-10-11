@@ -11,9 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
         Library workintech = new Library();
-        Person anil = new Student(1, "Anil", "Ensari");
-        Person icardi = new Person(2, "Mauro", "Icardi");
-        Person admin = new Person(0, "admin", "admin");
+        Person anil = new Student(1, "Anil", "Ensari", 600);
+        Person icardi = new Person(2, "Mauro", "Icardi", 510.00);
+        Person admin = new Person(0, "admin", "admin", 500.00);
         workintech.addPersonToLibrary(anil);
         workintech.addPersonToLibrary(icardi);
         boolean isOpen = true;
@@ -62,41 +62,57 @@ public class Main {
                         }
                         break;
                     case "2":
-                        Scanner scanner3 = new Scanner(System.in);
-                        System.out.println("Please enter an integer id you want to have! ");
+                        boolean validId = false;
+                        String id2 = "";
 
-                        String id2 = scanner3.nextLine();
-                        int validatedId = 0;
-                        for (Person persons : workintech.getPersonList()) {
-                            if (persons.getId() == Integer.parseInt(id2)) {
-                                System.out.println("Your entered id is used. Please try again a new id");
-                                validatedId = 0;
-                                break;
+                        while (!validId) {
+                            Scanner scanner3 = new Scanner(System.in);
+                            System.out.println("Please enter an integer id you want to have! ");
+                            id2 = scanner3.nextLine();
+
+                            boolean isUsed = false;
+
+                            for (Person persons : workintech.getPersonList()) {
+                                if (persons.getId() == Integer.parseInt(id2)) {
+                                    System.out.println("Your entered id is used. Please try again with a new id.");
+                                    isUsed = true;
+                                    break;
+                                }
                             }
 
-                            validatedId = Integer.parseInt(id2);
-
+                            if (!isUsed) {
+                                validId = true;
+                            }
                         }
-                        if (validatedId == Integer.parseInt(id2)) {
-                            System.out.println("Please enter your Name");
-                            String firstName2 = scanner.nextLine();
-                            System.out.println("Please enter your Lastname");
-                            String lastName2 = scanner.nextLine();
-                            System.out.println("Are you a student ?");
+
+                        System.out.println("Please enter your Name");
+                        String firstName2 = scanner.nextLine();
+                        System.out.println("Please enter your Lastname");
+                        String lastName2 = scanner.nextLine();
+                        System.out.println("You have to pay at least 500 to register.");
+                        System.out.println("This amount will decrease as you borrow books and increase as you return them");
+                        double firstPayment = Double.parseDouble(scanner.nextLine());
+
+                        if (firstPayment > 499) {
+                            System.out.println("Thanks for the donation.");
+                            System.out.println("Are you a student?");
                             System.out.println("1- Yes ");
                             System.out.println("2- No");
                             String isStudent = scanner.nextLine();
+
                             if (isStudent.equals("1")) {
-                                loggedinPerson = new Student(validatedId, firstName2, lastName2);
+                                loggedinPerson = new Student(Integer.parseInt(id2), firstName2, lastName2, firstPayment);
                             } else {
-                                loggedinPerson = new Person(validatedId, firstName2, lastName2);
+                                loggedinPerson = new Person(Integer.parseInt(id2), firstName2, lastName2, firstPayment);
                             }
+
                             workintech.addPersonToLibrary(loggedinPerson);
-                            System.out.println("Congratulations you have been registered!");
-                            break;
-
-
+                            System.out.println("Congratulations, you have been registered!");
+                        } else {
+                            System.out.println("First payment cant be lower than 500.");
+                            System.out.println("You are being directed to upper menu");
                         }
+                        break;
                     case "3":
                         loggedinPerson = admin;
                         System.out.println("Hello admin, Welcome to the system");
@@ -169,7 +185,8 @@ public class Main {
                                         workintech.addBook(addedBook);
                                         workintech.bookMap.put(addedBook.getName(), 1);
                                         System.out.println("Congratulations you have successfully added " + addedBook);
-                                    } ;
+                                    }
+                                    ;
                                     break;
                                 } else {
                                     System.out.println("The id is already used by another book");
@@ -177,7 +194,8 @@ public class Main {
                                 }
                                 break;
 
-                        } break;
+                        }
+                        break;
                     case "2":
                         System.out.println("Please select a book to remove from the library");
                         System.out.println("How do you want to select the book ?");
@@ -283,7 +301,7 @@ public class Main {
                                     workintech.bookMap.put(updatedBook.getName(), workintech.bookMap.get(selectedBook2.getName()));
                                 }
                                 workintech.bookMap.remove(selectedBook2.getName());
-                                workintech.editBook(selectedBook2,updatedBook);
+                                workintech.editBook(selectedBook2, updatedBook);
 
 
                                 System.out.println("Congratulations you have successfully set " + updatedBook);
@@ -342,6 +360,8 @@ public class Main {
                 System.out.println("3-List books by Author");
                 System.out.println("4-Borrow book");
                 System.out.println("5-Give book back");
+                System.out.println("6-Check Balance");
+                System.out.println("7- Donate");
                 System.out.println("9-Log out");
 
 
@@ -457,6 +477,16 @@ public class Main {
                             }
 
                         }
+                        break;
+                    case "6":
+                        System.out.println(loggedinPerson.getFinancialCheck());
+                        break;
+                    case "7":
+                        System.out.println("Please enter the value you want to pay");
+                        Double valueToDonate = Double.parseDouble(scanner4.nextLine());
+                        loggedinPerson.getFinancialCheck().pay(valueToDonate);
+                        System.out.println("Your payment has been succesfully loaded. \n" +
+                                "Your balance is : " + loggedinPerson.getFinancialCheck().getCurrentBalance());
                         break;
 
 

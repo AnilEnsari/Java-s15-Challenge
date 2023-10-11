@@ -214,10 +214,32 @@ public class Library {
         } else {
             if (bookMap.containsKey(book.getName())) {
                 if (bookMap.get(book.getName()) > 0) {
-                    bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
-                    person1.borrowBook(book);
-                    System.out.println("Congratulations you have successfully borrowed the book successfully" + book);
-                    person1.borrowBill(book);
+
+
+                    if(book.getRentPrice()<= person1.getFinancialCheck().getCurrentBalance()){
+
+                        bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
+                        person1.borrowBook(book);
+                        System.out.println("Congratulations you have borrowed the book successfully " + book);
+                        person1.borrowBill(book);
+
+                    }
+
+                    else if ("Person.Student".equals(person1.getClass().getName())&&book.getRentPrice()*0.9<= person1.getFinancialCheck().getCurrentBalance()) {
+                        bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
+                        person1.borrowBook(book);
+                        System.out.println("Congratulations you have borrowed the book successfully" + book);
+                        person1.borrowBill(book);
+                    }
+
+
+                    else {
+
+                        System.out.println("Your current balance is not enouth to borrow the book. " +"\n"
+                                +"Please make a payment to borrow the book. ");
+
+                    }
+
 
                 } else {
                     List<Person> ownerList = new LinkedList<>();
@@ -227,7 +249,11 @@ public class Library {
                         }
                     }
 
-                    System.out.println("This book is out of library. It is borrowed by: " + ownerList);
+                    System.out.println("This book is out of library. It is borrowed by: "
+                            + ownerList
+
+
+                    );
                 }
 
             } else {
