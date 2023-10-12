@@ -1,6 +1,8 @@
-import Books.*;
-import Enums.Categories;
-import Person.Person;
+package com.workintech.libraryChallenge;
+
+import com.workintech.libraryChallenge.Books.*;
+import com.workintech.libraryChallenge.Enums.Categories;
+import com.workintech.libraryChallenge.Person.Person;
 
 import java.util.*;
 
@@ -169,7 +171,7 @@ public class Library {
             }
         } else {
 
-            System.out.println("The Library already doesn't have the book. Please select a valid book");
+            System.out.println("The com.workintech.libraryChallenge.com.workintech.libraryChallenge.Books.Books.Library already doesn't have the book. Please select a valid book");
         }
 
 
@@ -227,7 +229,7 @@ public class Library {
 
                     }
 
-                    else if ("Person.Student".equals(person1.getClass().getName())&&book.getRentPrice()*0.9<= person1.getFinancialCheck().getCurrentBalance()) {
+                    else if ("com.workintech.libraryChallenge.com.workintech.libraryChallenge.Books.Books.Person.Student".equals(person1.getClass().getName())&&book.getRentPrice()*0.9<= person1.getFinancialCheck().getCurrentBalance()) {
                         bookMap.put(book.getName(), bookMap.get(book.getName()) - 1);
                         person1.borrowBook(book);
                         System.out.println("Congratulations you have borrowed the book successfully" + book);

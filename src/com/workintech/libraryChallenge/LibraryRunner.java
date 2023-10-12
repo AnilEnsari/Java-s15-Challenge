@@ -1,8 +1,9 @@
+package com.workintech.libraryChallenge;
 
-import Books.Book;
-import Enums.Categories;
-import Person.Student;
-import Person.Person;
+import com.workintech.libraryChallenge.Books.Book;
+import com.workintech.libraryChallenge.Enums.Categories;
+import com.workintech.libraryChallenge.Person.Student;
+import com.workintech.libraryChallenge.Person.Person;
 
 import java.util.Scanner;
 

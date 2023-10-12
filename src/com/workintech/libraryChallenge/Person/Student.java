@@ -1,8 +1,6 @@
-package Person;
+package com.workintech.libraryChallenge.Person;
 
-import Books.Book;
-
-import java.util.List;
+import com.workintech.libraryChallenge.Books.Book;
 
 public  class  Student extends Person {
 

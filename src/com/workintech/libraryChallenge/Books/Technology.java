@@ -1,6 +1,7 @@
-package Books;
+package com.workintech.libraryChallenge.Books;
 
-import Enums.Categories;
+
+import com.workintech.libraryChallenge.Enums.Categories;
 
 
 public class Technology extends Book {

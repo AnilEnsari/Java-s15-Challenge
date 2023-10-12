@@ -1,11 +1,4 @@
-
-import Books.Book;
-import Enums.Categories;
-import Person.Student;
-import Person.Person;
-
-import java.util.Scanner;
-
+import com.workintech.libraryChallenge.LibraryRunner;
 
 public class Main {
 

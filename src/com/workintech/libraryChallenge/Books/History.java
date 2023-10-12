@@ -1,9 +1,10 @@
-package Books;
-
-import Enums.Categories;
+package com.workintech.libraryChallenge.Books;
 
 
-public class History extends Book{
+import com.workintech.libraryChallenge.Enums.Categories;
+
+
+public class History extends Book {
     public History(int id, String name, String  author) {
         super(id, name, author);
         super.setCategories(Categories.HISTORY.getName());

@@ -1,4 +1,4 @@
-package Enums;
+package com.workintech.libraryChallenge.Enums;
 
 public enum Categories {
     SPORT("Sport", 150),

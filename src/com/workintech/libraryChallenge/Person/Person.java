@@ -1,6 +1,6 @@
-package Person;
+package com.workintech.libraryChallenge.Person;
 
-import Books.Book;
+import com.workintech.libraryChallenge.Books.Book;
 
 import java.util.ArrayList;
 import java.util.List;

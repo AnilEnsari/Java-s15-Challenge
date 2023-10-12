@@ -1,6 +1,6 @@
-package Books;
+package com.workintech.libraryChallenge.Books;
 
-import Enums.Categories;
+import com.workintech.libraryChallenge.Enums.Categories;
 
 
 import java.util.Objects;
