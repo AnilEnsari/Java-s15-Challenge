@@ -1,4 +1,4 @@
-import com.workintech.libraryChallenge.LibraryRunner;
+import com.workintech.libraryChallenge.Library.LibraryRunner;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package com.workintech.libraryChallenge;
+package com.workintech.libraryChallenge.Library;
 
 import com.workintech.libraryChallenge.Books.Book;
 import com.workintech.libraryChallenge.Enums.Categories;
