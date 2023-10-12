@@ -1,6 +1,6 @@
 package com.workintech.libraryChallenge.Library;
 
-import com.workintech.libraryChallenge.Books.Book;
+import com.workintech.libraryChallenge.Books.*;
 import com.workintech.libraryChallenge.Enums.Categories;
 import com.workintech.libraryChallenge.Person.Student;
 import com.workintech.libraryChallenge.Person.Person;
@@ -170,10 +170,10 @@ public class LibraryRunner {
                                     System.out.println("4- Technology");
                                     String categoryResult = scanner5.nextLine();
                                     switch (categoryResult) {
-                                        case "1" -> addedBook = new Book(Integer.parseInt(addedId2), addName2, author2, Categories.SPORT);
-                                        case "2" -> addedBook = new Book(Integer.parseInt(addedId2), addName2, author2, Categories.CLASSICS);
-                                        case "3" -> addedBook = new Book(Integer.parseInt(addedId2), addName2, author2, Categories.HISTORY);
-                                        case "4" -> addedBook = new Book(Integer.parseInt(addedId2), addName2, author2, Categories.TECHNOLOGY);
+                                        case "1" -> addedBook = new Sports(Integer.parseInt(addedId2), addName2, author2);
+                                        case "2" -> addedBook = new Classics(Integer.parseInt(addedId2), addName2, author2);
+                                        case "3" -> addedBook = new History(Integer.parseInt(addedId2), addName2, author2);
+                                        case "4" -> addedBook = new Technology(Integer.parseInt(addedId2), addName2, author2);
                                         default -> System.out.println("You entered an invalid category");
                                     }
                                     if (addedBook != null) {
